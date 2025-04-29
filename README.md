@@ -1,5 +1,5 @@
 # ML CLASS PROJECT
-A linear regression styled model prediction of heart disease based on features taken from a csv dataset.
+A comparison of multiple model's prediction of heart disease based on features taken from a csv dataset. Compares their outputs to see the best one.
 
 ## SETUP
 1. Start venv.
