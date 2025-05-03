@@ -2,7 +2,7 @@ from datainput import load_data_from_xlsx
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -38,8 +38,17 @@ y_pred = model.predict(X_test_scaled)
 # Evaluate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 cm = confusion_matrix(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+
+# Calculate specificity
+tn, fp, fn, tp = cm.ravel()
+specificity = tn / (tn + fp)
 
 print(f"\nTest Set Accuracy: {accuracy:.8f}")
+print(f"Precision: {precision:.8f}")
+print(f"Recall: {recall:.8f}")
+print(f"Specificity: {specificity:.8f}")
 
 # Plot the confusion matrix (Exact prediction numbers)
 plt.figure(figsize=(8, 6))
