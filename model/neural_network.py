@@ -1,4 +1,4 @@
-from datainput import load_data_from_xlsx
+import pandas as pd
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
@@ -7,8 +7,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Read in data
-X, y = load_data_from_xlsx("target",["age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach", "exang", "oldpeak", "slope", "ca", "thal"])
+# Read in data with piping
+features = ["age", "sex", "cp", "trestbps", "chol", "fbs", "restecg", "thalach", "exang", "oldpeak", "slope", "ca", "thal"]
+df = pd.read_csv("../data/heart_og.csv") # I Run this inside the model folder; if you run in a different directory, change this.
+df = df.loc[:, df.nunique() > 1] # drop any constant columns, remove features with only a single unique value
+df = df.dropna(subset=features + ["target"])
+features = [f for f in features if f in df.columns]
+X = df[features].values
+y = df["target"].values
 
 # Split the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=21)
@@ -17,19 +23,25 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled  = scaler.transform(X_test)
+print("NaNs in X_train_scaled:", np.isnan(X_train_scaled).sum())
+print("Infs in X_train_scaled:", np.isinf(X_train_scaled).sum())
+
 
 # Create MLPClassifier as an NN model
 # one hidden layer of 100 neurons
 # max_iter increased to ensure convergence
-model = MLPClassifier(hidden_layer_sizes=(100,), activation='relu', solver='adam', max_iter=700, random_state=69)
+model = MLPClassifier(
+    hidden_layer_sizes=(100,),
+    activation='relu',
+    solver='adam',
+    max_iter=1000,
+    random_state=69
+)
 
 # K-fold cross validation is used to estimate how well the model will generalize
 k_folds = 5
 cv = KFold(n_splits=k_folds, shuffle=True, random_state=420)
 accuracy_scores = cross_val_score(model, X_train_scaled, y_train, cv=cv, scoring='accuracy')
-
-print(f"Accuracy scores for each of the {k_folds} folds: {accuracy_scores}")
-print(f"Mean cross-validation accuracy: {np.mean(accuracy_scores):.8f}")
 
 # Train the model with the entire training data
 model.fit(X_train_scaled, y_train)
