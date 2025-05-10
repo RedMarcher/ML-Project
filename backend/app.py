@@ -1,10 +1,15 @@
+import os
 from flask import Flask, render_template, request
+from services import *
 #import your_ml_model  # Replace with your machine learning model import
-
-app = Flask(__name__)
 
 # Load your pre-trained machine learning model here
 #model = your_ml_model.load_model()  # Replace with your model loading logic
+
+HERE = os.path.dirname(__file__)
+TEMPLATE_FOLDER = os.path.abspath(os.path.join(HERE, "..", "templates"))
+
+app = Flask(__name__, template_folder=TEMPLATE_FOLDER)
 
 @app.route("/")
 def index():
@@ -19,35 +24,18 @@ def predict():
 
 
         #(Add each 13 features)
-        input_data.append(int(request.form.get('age')))
-        input_data.append(int(request.form.get('sex')))
+        input_data.append(request.form.get('age'))
+        input_data.append(request.form.get('sex'))
 
         ##Deal w/ checkbox for model type (14th input)
         modeltype = 'ANN'
 
         result = {}
-
+        input_data = [42,1,2,130,180,0,1,150,0,0,2,0,2]
         if modeltype == 'ANN':
             result['ANN'] = predict_ANN(input_data)
 
-        
-
-        number_data = request.form.get("number")
-
-        # Preprocess the input data for your model (if needed)
-        # ... your data preprocessing code here ...
-
-        # Make prediction using your model
-        #prediction = model.predict([preprocessed_data])  # Assuming a list input
-
-        # Format the prediction for display
-        #predicted_class = prediction[0]  # Assuming single class output
-
-        #Temp
-        predicted_class = "cats "
-        total_animals = predicted_class * int(number_data)
-
-        return render_template("result.html", prediction=total_animals)
+        return render_template("result.html", prediction=result)
 
     else:
         return "Something went wrong. Please try again."
