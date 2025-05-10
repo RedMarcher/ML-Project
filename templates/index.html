@@ -9,10 +9,13 @@
 <body>
     <h1>Machine Learning Classification Project</h1>
     <form method="POST" action="/predict">
-        <label for="input">Enter data to classify:</label>
-        <input type="text" name="input" id="input" required>
-        <label for="number">Enter a number of animals:</label>
-        <input type="number" name="number" id="number" required>
+        <label for="age">Enter age:</label>
+        <input type="number" name="age" id="age" required>
+        <label for="gender">gender:</label>
+        <select name="gender" id="gender" required>
+            <option value='1'>Male</option>
+            <option value='0'>Female</option>
+        </select>
         <br>
         <button type="submit">Predict</button>
     </form>
