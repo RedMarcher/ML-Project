@@ -11,6 +11,12 @@ TEMPLATE_FOLDER = os.path.abspath(os.path.join(HERE, "..", "templates"))
 
 app = Flask(__name__, template_folder=TEMPLATE_FOLDER)
 
+with open('../data/heart_og.csv') as file:
+
+    ##opens up csv grabs 1 line(first), strips \n and splits based on comma
+    HEADER_LIST = file.readline().strip().split(',')
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -24,8 +30,17 @@ def predict():
 
 
         #(Add each 13 features)
-        input_data.append(request.form.get('age'))
-        input_data.append(request.form.get('sex'))
+
+        ##oneliner for loop that appends each feature into input_data
+        input_data = [request.form.get(feature) for feature in HEADER_LIST]
+
+
+        #unnessecary but there for legacy
+        # input_data.append(request.form.get('age'))
+        # input_data.append(request.form.get('sex'))
+        # input_data.append(request.form).get(('cp'))
+
+
 
         ##Deal w/ checkbox for model type (14th input)
         modeltype = 'ANN'
