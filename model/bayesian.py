@@ -2,7 +2,7 @@ from datainput import load_data_from_xlsx
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, roc_auc_score, matthews_corrcoef
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -44,6 +44,22 @@ recall    = recall_score(y_test, y_pred)
 # Calculate specificity
 tn, fp, fn, tp = cm.ravel()
 specificity = tn / (tn + fp)
+
+###MORGAN INSERT
+##MORGAN WAS HERE
+###MCC Matthews Correlation Coefficent(MCC)
+y_score = model.predict_proba(X_test_scaled)[:,1]
+mcc = matthews_corrcoef(y_test, y_pred)
+##AUC
+auc = roc_auc_score(y_test, y_score)
+
+
+print(f"AUC: {auc}")
+print(f"Mcc: {mcc : .8f}")
+
+
+print(f"AUC: {auc*100: .5f}")
+print(f"Mcc: {mcc : .8f}")
 
 print(f"\nTest Set Accuracy: {accuracy:.8f}")
 print(f"Precision:           {precision:.8f}")

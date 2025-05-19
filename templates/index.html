@@ -9,17 +9,85 @@
 <body>
     <h1>Machine Learning Classification Project</h1>
     <form method="POST" action="/predict">
-        <label for="age">Enter age:</label>
+        <!-- 1. Age -->
+        <label for="age">Age:</label>
         <input type="number" name="age" id="age" required>
-        <label for="gender">gender:</label>
-        <select name="gender" id="gender" required>
-            <option value='1'>Male</option>
-            <option value='0'>Female</option>
+
+        <!-- 2. Sex -->
+        <label for="gender">Gender:</label>
+        <select name="sex" id="gender" required>
+            <option value="1">Male</option>
+            <option value="0">Female</option>
         </select>
-        <!-- ##CP needs select -->
-        <!-- Finish all 13 features -->
-        <!-- ##Checkbox for model type -->
-        <br>
+
+        <!-- 3. Chest pain type -->
+        <label for="cp">Chest Pain Type:</label>
+        <select name="cp" id="cp" required>
+            <option value="0">Typical Angina</option>
+            <option value="1">Atypical Angina</option>
+            <option value="2">Non-anginal Pain</option>
+            <option value="3">Asymptomatic</option>
+        </select>
+
+        <!-- 4. Resting blood pressure -->
+        <label for="trestbps">Resting Blood Pressure (mm Hg):</label>
+        <input type="number" name="trestbps" id="trestbps" required>
+
+        <!-- 5. Serum cholesterol -->
+        <label for="chol">Serum Cholesterol (mg/dl):</label>
+        <input type="number" name="chol" id="chol" required>
+
+        <!-- 6. Fasting blood sugar > 120 mg/dl -->
+        <label for="fbs">Fasting Blood Sugar > 120 mg/dl:</label>
+        <select name="fbs" id="fbs" required>
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
+
+        <!-- 7. Resting electrocardiographic results -->
+        <label for="restecg">Resting ECG Results:</label>
+        <select name="restecg" id="restecg" required>
+            <option value="0">Normal</option>
+            <option value="1">ST-T Abnormality</option>
+            <option value="2">Left Ventricular Hypertrophy</option>
+        </select>
+
+        <!-- 8. Maximum heart rate achieved -->
+        <label for="thalach">Max Heart Rate Achieved:</label>
+        <input type="number" name="thalach" id="thalach" required>
+
+        <!-- 9. Exercise-induced angina -->
+        <label for="exang">Exercise-Induced Angina:</label>
+        <select name="exang" id="exang" required>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select>
+
+        <!-- 10. ST depression induced by exercise relative to rest -->
+        <label for="oldpeak">ST Depression (oldpeak):</label>
+        <input type="number" step="0.1" name="oldpeak" id="oldpeak" required>
+
+        <!-- 11. Slope of the peak exercise ST segment -->
+        <label for="slope">Slope of ST Segment:</label>
+        <select name="slope" id="slope" required>
+            <option value="0">Upsloping</option>
+            <option value="1">Flat</option>
+            <option value="2">Downsloping</option>
+        </select>
+
+        <!-- 12. Number of major vessels (0–3) colored by fluoroscopy -->
+        <label for="ca">Number of Major Vessels (0–3):</label>
+        <input type="number" name="ca" id="ca" min="0" max="3" required>
+
+        <!-- 13. Thalassemia -->
+        <label for="thal">Thalassemia:</label>
+        <select name="thal" id="thal" required>
+            <option value="1">Normal</option>
+            <option value="2">Fixed Defect</option>
+            <option value="3">Reversible Defect</option>
+        </select>
+
+        <br><br>
         <button type="submit">Predict</button>
     </form>
 </body>
