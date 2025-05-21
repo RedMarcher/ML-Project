@@ -34,7 +34,7 @@ model = MLPClassifier(
     hidden_layer_sizes=(100,),
     activation='relu',
     solver='adam',
-    max_iter=1000,
+    max_iter=100,
     random_state=69
 )
 
