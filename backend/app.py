@@ -32,7 +32,7 @@ def predict():
 
         #(Add each 13 features)
 
-        ##oneliner for loop that appends each feature into input_data
+        ##oneliner for loop that appends each feature into input_data excluding our output variable
         input_data = [request.form.get(feature) for feature in HEADER_LIST if feature != TARGET]
 
 
