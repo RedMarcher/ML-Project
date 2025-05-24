@@ -16,6 +16,7 @@ with open('../data/heart_og.csv') as file:
     ##opens up csv grabs 1 line(first), strips \n and splits based on comma
     HEADER_LIST = file.readline().strip().split(',')
 
+    TARGET = 'target'
 
 @app.route("/")
 def index():
@@ -32,7 +33,7 @@ def predict():
         #(Add each 13 features)
 
         ##oneliner for loop that appends each feature into input_data
-        input_data = [request.form.get(feature) for feature in HEADER_LIST]
+        input_data = [request.form.get(feature) for feature in HEADER_LIST if feature != TARGET]
 
 
         #unnessecary but there for legacy
@@ -46,7 +47,7 @@ def predict():
         modeltype = 'ANN'
 
         result = {}
-        input_data = [42,1,2,130,180,0,1,150,0,0,2,0,2]
+        ##input_data = [42,1,2,130,180,0,1,150,0,0,2,0,2]
         if modeltype == 'ANN':
             result['ANN'] = predict_ANN(input_data)
 
