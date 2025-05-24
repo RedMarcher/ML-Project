@@ -8,8 +8,9 @@ from services import *
 
 HERE = os.path.dirname(__file__)
 TEMPLATE_FOLDER = os.path.abspath(os.path.join(HERE, "..", "templates"))
+STATIC_FOLDER = os.path.abspath(os.path.join(HERE, "..", "static"))
 
-app = Flask(__name__, template_folder=TEMPLATE_FOLDER)
+app = Flask(__name__, template_folder=TEMPLATE_FOLDER, static_folder=STATIC_FOLDER)
 
 with open('../data/heart_og.csv') as file:
 
@@ -49,7 +50,7 @@ def predict():
         result = {}
         ##input_data = [42,1,2,130,180,0,1,150,0,0,2,0,2]
         if modeltype == 'ANN':
-            result['ANN'] = predict_ANN(input_data)
+            result = str(bool(predict_ANN(input_data)[0]))
 
         return render_template("result.html", prediction=result)
 

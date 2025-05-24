@@ -8,10 +8,18 @@
 
 <body>
     <h1>Machine Learning Classification Project</h1>
-    <p>
-        <!--jinja-->
-        {{ prediction }}
-    </p>
+    <div class="results">
+        <p>
+            <!--jinja-->
+            {{"Your Heat Disease Prediction Results: " + prediction }}
+        </p>
+    </div>
+    <div class="graphs">
+        <figure class="graph" id="AUC">
+            <figcaption>ANN Accuracies and AUC Curve</figcaption>
+            <img src="{{url_for('static', filename='ANNAUC.png')}}" />
+        </figure>
+    </div>
 </body>
 
 </html>
