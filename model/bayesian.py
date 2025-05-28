@@ -2,7 +2,7 @@ from datainput import load_data_from_xlsx
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, roc_auc_score, matthews_corrcoef
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, roc_auc_score, matthews_corrcoef, roc_curve, precision_recall_curve
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -75,4 +75,63 @@ plt.xlabel('Predicted')
 plt.ylabel('Actual')
 plt.title('Gaussian Naive Bayes Confusion Matrix')
 plt.savefig("bayesian_model_results.jpg")
+
+# Model Performance Measures ( For Project's Exploratory Analysis ) -FG
+# ------------------------------------------------------------------
+
+# ( TPR - FPR ) ROC Curve
+fpr, tpr, _ = roc_curve(y_test, y_score)
+plt.figure()
+plt.plot(fpr, tpr)
+plt.plot([0, 1], [0, 1])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+#plt.show()
+plt.savefig("roc_curve.png")  # saves to file 
+
+# ( Precision – Recall ) Curve
+precision_vals, recall_vals, _ = precision_recall_curve(y_test, y_score)
+plt.figure()
+plt.plot(recall_vals, precision_vals)
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision–Recall Curve')
+#plt.show()
+plt.savefig("precision_recall_curve.png") # saves to file 
+
+# Predicted Probabilities ( True Class - False Class ) Distribution
+plt.figure()
+plt.hist(y_score[y_test == 0], bins=20, label='No Heart Disease')
+plt.hist(y_score[y_test == 1], bins=20, label='Heart Disease')
+plt.xlabel('Predicted Probability of Disease')
+plt.ylabel('Count')
+plt.title('Predicted-Probability Distribution')
+plt.legend()
+#plt.show()
+plt.savefig("probability_distribution.png") # saves to file 
+
+# Misclassification Rate
+misclass_rate = np.mean(y_test != y_pred)
+print(f"Zero–One Loss (Misclassification Rate): {misclass_rate:.8f}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
