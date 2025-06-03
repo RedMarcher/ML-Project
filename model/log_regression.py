@@ -2,7 +2,7 @@ from datainput import load_data_from_xlsx
 from sklearn.model_selection import train_test_split, KFold, cross_val_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, roc_auc_score, matthews_corrcoef, roc_curve, precision_recall_curve
+from sklearn.metrics import accuracy_score, confusion_matrix, precision_score, recall_score, roc_auc_score, matthews_corrcoef, roc_auc_score, roc_curve, precision_recall_curve
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
