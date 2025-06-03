@@ -5,8 +5,8 @@ A comparison of multiple model's prediction of heart disease based on features t
 1. Start venv.
 2. Install requirements `pip install -r requirements.txt`
 3. Nivida drivers may take some time and sometimes have trouble.
-3. cd into backend and run "app.py"
-4. Ctrl click on the link in terminal.
+4. cd into backend and run "app.py"
+5. Ctrl click on the link in terminal.
 
 ## Maintence
 If more dependencies are added please use the following command to add to the requirements.
