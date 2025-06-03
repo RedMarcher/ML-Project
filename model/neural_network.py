@@ -87,3 +87,41 @@ plt.ylabel('Actual')
 plt.title('Neural Network Confusion Matrix')
 plt.savefig("nn_model_results.jpg")
 
+# Model Performance Measures ( For Project's Exploratory Analysis ) -FG
+# ------------------------------------------------------------------
+
+# Misclassification Rate
+misclass_rate = np.mean(y_test != y_pred)
+print(f"Zero–One Loss 'Misclassification Rate' (Neural Network Model): {misclass_rate:.8f}")
+
+# ( TPR - FPR ) ROC Curve
+fpr, tpr, _ = roc_curve(y_test, y_score)
+plt.figure()
+plt.plot(fpr, tpr)
+plt.plot([0, 1], [0, 1])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve (Neural Network Model)')
+#plt.show()
+plt.savefig("roc_curve_NeuralNetwork.png")  # saves to file 
+
+# ( Precision – Recall ) Curve
+precision_vals, recall_vals, _ = precision_recall_curve(y_test, y_score)
+plt.figure()
+plt.plot(recall_vals, precision_vals)
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Precision–Recall Curve (Neural Network Model)')
+#plt.show()
+plt.savefig("precision_recall_curve_NeuralNetwork.png") # saves to file 
+
+# Predicted Probabilities ( True Class - False Class ) Distribution
+plt.figure()
+plt.hist(y_score[y_test == 0], bins=20, label='No Heart Disease')
+plt.hist(y_score[y_test == 1], bins=20, label='Heart Disease')
+plt.xlabel('Predicted Probability of Disease')
+plt.ylabel('Count')
+plt.title('Predicted-Probability Distribution (Neural Network Model)')
+plt.legend()
+#plt.show()
+plt.savefig("probability_distribution_NeuralNetwork.png") # saves to file 
